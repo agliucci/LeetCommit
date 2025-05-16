@@ -1,26 +1,37 @@
 console.log("LeetCommit loaded on LeetCode");
 
-const target: Element | null = document.querySelector('[data-e2e-locator="submission-result"]');
+const interval = setInterval(() => {
+    const target: Element | null = document.querySelector('[data-e2e-locator="submission-result"]');
+    const text = target && target.textContent ? target.textContent.trim() : null;
 
-if (target) {
-    const observer = new MutationObserver(entries => {
-        for (const entry of entries) {
-            if (entry.type === "characterData" || entry.type === "childList") {
-                const newText = target.textContent?.trim();
-                if (newText === "Accepted") {
-                    console.log("Submission accepted");
-                    const submission = {
-                        title: document.querySelector('a[href^="/problems"]'),
-                       
-                    }
-                }
-            }
-        }
-    });
+    if (text === "Accepted") { 
+        console.log("Submission accepted");
+        clearInterval(interval);
 
-    observer.observe(target, {
-        childList: true,
-        subtree: true,
-        characterData: true,
-    });
-}
+        const title = document.title.replace(' - LeetCode', '').trim();
+
+        const lineElements = document.querySelectorAll('.view-line');
+        const lines: string[] = [];
+        lineElements.forEach(line => {
+        const spans = line.querySelectorAll('span span');
+        const lineText = Array.from(spans).map(span => span.textContent).join('');
+        lines.push(lineText);
+        });
+        const fullCode = lines.join('\n');
+
+        const language = document.querySelector('button.rounded.inline-flex.text-text-secondary.text-sm')?.textContent;
+
+        const submission = {
+            title,
+            code: fullCode,
+            language
+        };
+
+        console.log(submission);
+
+    }
+}, 1000);
+
+
+
+
