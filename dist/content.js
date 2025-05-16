@@ -7,6 +7,8 @@ const interval = setInterval(() => {
         console.log("Submission accepted");
         clearInterval(interval);
         const title = document.title.replace(' - LeetCode', '').trim();
+        const difficultyEl = document.querySelector('div[class*="text-difficulty-"]');
+        const difficulty = difficultyEl?.textContent?.trim().toLowerCase() || "unknown";
         const lineElements = document.querySelectorAll('.view-line');
         const lines = [];
         lineElements.forEach(line => {
@@ -51,7 +53,7 @@ const interval = setInterval(() => {
             const extension = language && typeof language === "string" && languageExtensions[language.toLowerCase()]
                 ? languageExtensions[language.toLowerCase()]
                 : "txt";
-            const filePath = `solutions/${language}/${title}.${extension}`;
+            const filePath = `solutions/${difficulty}/${title}.${extension}`;
             const payload = {
                 message: `Add ${submission.language} solution for ${submission.title}`,
                 content: base64,

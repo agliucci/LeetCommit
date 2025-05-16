@@ -9,6 +9,9 @@ const interval = setInterval(() => {
         clearInterval(interval);
 
         const title = document.title.replace(' - LeetCode', '').trim();
+        const difficultyEl = document.querySelector('div[class*="text-difficulty-"]');
+        const difficulty = difficultyEl?.textContent?.trim().toLowerCase() || "unknown";
+
 
         const lineElements = document.querySelectorAll('.view-line');
         const lines: string[] = [];
@@ -63,7 +66,8 @@ const interval = setInterval(() => {
             const extension = language && typeof language === "string" && languageExtensions[language.toLowerCase()] 
                 ? languageExtensions[language.toLowerCase()] 
                 : "txt"; 
-            const filePath = `solutions/${language}/${title}.${extension}`;
+            const filePath = `solutions/${difficulty}/${title}.${extension}`;
+
 
 
             const payload = {
