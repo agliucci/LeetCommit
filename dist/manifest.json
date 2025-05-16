@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "LeetCommit",
+  "version": "1.0",
+  "description": "Automatically sync accepted LeetCode solutions to GitHub.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://leetcode.com/*"],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+  
+}

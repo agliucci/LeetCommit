@@ -1,0 +1,1 @@
+console.log("LeetCommit loaded on LeetCode");
