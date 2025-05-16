@@ -3,7 +3,7 @@
   "name": "LeetCommit",
   "version": "1.0",
   "description": "Automatically sync accepted LeetCode solutions to GitHub.",
-  "permissions": ["storage"],
+  "permissions": ["storage", "activeTab"],
   "host_permissions": ["https://leetcode.com/*"],
   "action": {
     "default_popup": "popup/popup.html",
