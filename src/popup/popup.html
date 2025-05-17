@@ -25,7 +25,22 @@
         <button type="submit">Save Settings</button>
     </form>
     <p><strong>Problems Synced:</strong> <span id="synced-count">Loading...</span></p>
-
+    <div id="progress-container" style="
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;  /* light gray background */
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+">
+  <!-- 🔹 Filled progress bar -->
+  <div id="progress-bar" style="
+    height: 100%;
+    width: 0%;
+    background: #16a34a;  /* LeetCode-like green */
+    transition: width 0.3s ease;
+  "></div>
+</div>
     <p id="status" style="margin-top: 10px;"></p>
 </body>
 </html>

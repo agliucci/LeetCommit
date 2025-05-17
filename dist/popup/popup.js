@@ -1,4 +1,31 @@
 "use strict";
+
+async function totalProblems() {
+    const res = fetch("https://leetcode.com/graphql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            query: "query problemsetQuestionList { allQuestionsCount { difficulty count } }"
+        })
+    });
+    const data = (await res).json();
+    const total = data.data.allQuestionsCount.find(d => d.difficulty === "All")?.count || 3525;
+    return total;
+}
+
+async function progressBar() {
+    const total = await totalProblems();
+    chrome.storage.sync.get(["syncedCount"], (res) => {
+    const synced = res.syncedCount || 0;
+    const percent = (synced / total) * 100;
+
+    
+    document.getElementById("synced-count").textContent = `${synced} / ${total}`;
+
+   
+    document.getElementById("progress-bar").style.width = `${Math.min(percent, 100)}%`;
+  });
+}
 document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("settings-form");
@@ -16,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("github-token").value = data.githubToken || "";
   });
 
+  progressBar();
   
   form.addEventListener("submit", (e) => {
     e.preventDefault();
