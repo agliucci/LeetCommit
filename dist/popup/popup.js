@@ -1,7 +1,13 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", () => {
+
   const form = document.getElementById("settings-form");
   const status = document.getElementById("status");
+  chrome.storage.sync.get(["syncedCount"], (res) => {
+  const count = res.syncedCount || 0;
+  document.getElementById("synced-count").textContent = count;
+});
+
 
   // Load saved values and populate inputs
   chrome.storage.sync.get(["githubUsername", "repoName", "githubToken"], (data) => {

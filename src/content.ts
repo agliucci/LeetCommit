@@ -122,6 +122,10 @@ fetch(apiUrl, {
   .then(data => {
     if (data.content) {
       console.log("Pushed to GitHub:", data.content.html_url);
+      chrome.storage.sync.get(["syncedCount"], (res) => {
+        const current = res.syncedCount || 0;
+        chrome.storage.sync.set({ syncedCount: current + 1 });
+      })
     } else {
       console.error("GitHub push failed:", {
         message: data.message,
