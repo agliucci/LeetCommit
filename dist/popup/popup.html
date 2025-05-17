@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>body.light {
+    background: #fff;
+    color: #111;
+  }
+  body.dark {
+    background: #111;
+    color: #eee;
+  }</style>
 </head>
-<body>
+<body id="popupBody" class="light">
     <form id="settings-form">
         <label>
             GitHub Username: 
@@ -24,6 +32,7 @@
         <br />
         <button type="submit">Save Settings</button>
     </form>
+    <a href="settings.html" target="_blank">⚙️ Settings</a>
     <p><strong>Problems Synced:</strong> <span id="synced-count">Loading...</span></p>
     <div id="progress-container" style="
   width: 100%;

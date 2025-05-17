@@ -8,10 +8,12 @@ async function totalProblems() {
             query: "query problemsetQuestionList { allQuestionsCount { difficulty count } }"
         })
     });
-    const data = (await res).json();
+    const data = await (await res).json();
     const total = data.data.allQuestionsCount.find(d => d.difficulty === "All")?.count || 3525;
     return total;
 }
+
+
 
 async function progressBar() {
     const total = await totalProblems();
@@ -34,6 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const count = res.syncedCount || 0;
   document.getElementById("synced-count").textContent = count;
 });
+
+chrome.storage.sync.get("theme", (res) => {
+  const theme = res.theme || "light";
+  document.getElementById("popupBody").classList.add(theme);
+});
+
 
 
   // Load saved values and populate inputs

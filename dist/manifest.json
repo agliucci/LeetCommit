@@ -16,6 +16,13 @@
       "matches": ["*://leetcode.com/*"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "web_accessible_resources": [
+  {
+    "resources": ["settings.html"],
+    "matches": ["<all_urls>"]
+  }
+]
+
   
 }
