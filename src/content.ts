@@ -59,19 +59,28 @@ const interval = setInterval(() => {
                 return;
             };
 
+            const metadataComment = `
+            // Title: ${submission.title}
+            // Difficulty: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+            // Language: ${submission.language}
+            // Link: https://leetcode.com/problems/${submission.title.replace(/\s+/g, '-').toLowerCase()}/
+            `.trim();
+            const fullCodeWithComment = `${metadataComment}\n\n${submission.code}`;
+
+
             const base64 = btoa(
-                new TextEncoder().encode(submission.code).reduce((acc, byte) => acc + String.fromCharCode(byte), "")
+                new TextEncoder().encode(fullCodeWithComment).reduce((acc, byte) => acc + String.fromCharCode(byte), "")
             );
 
             const extension = language && typeof language === "string" && languageExtensions[language.toLowerCase()] 
                 ? languageExtensions[language.toLowerCase()] 
                 : "txt"; 
-            const filePath = `solutions/${difficulty}/${title}.${extension}`;
+            const filePath = `solutions/${difficulty}/${submission.title}.${extension}`;
 
 
 
             const payload = {
-                message: `Add ${submission.language} solution for ${submission.title}`,
+                message: `Add solution for ${submission.title}`,
                 content: base64,
                 branch: "main"
             };
