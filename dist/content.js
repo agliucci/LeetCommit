@@ -66,13 +66,36 @@ const interval = setInterval(() => {
                 content: base64,
                 branch: "main"
             };
-            fetch(`https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`, {
-                method: "PUT",
+            const apiUrl = `https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`;
+            fetch(apiUrl, {
+                method: "GET",
                 headers: {
-                    "Authorization": `token ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
+                    Authorization: `token ${token}`,
+                    Accept: "application/vnd.github.v3+json"
+                }
+            })
+                .then(res => {
+                if (res.status === 404)
+                    return null;
+                if (!res.ok)
+                    throw new Error(`GitHub GET failed with status ${res.status}`);
+                return res.json();
+            })
+                .then(existingFile => {
+                const payload = {
+                    message: `Add solution for ${submission.title}`,
+                    content: base64,
+                    branch: "main",
+                    ...(existingFile && { sha: existingFile.sha })
+                };
+                return fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
             })
                 .then(res => res.json())
                 .then(data => {
@@ -80,10 +103,14 @@ const interval = setInterval(() => {
                     console.log("Pushed to GitHub:", data.content.html_url);
                 }
                 else {
-                    console.error("GitHub push failed:", data);
+                    console.error("GitHub push failed:", {
+                        message: data.message,
+                        errors: data.errors,
+                        url: data.documentation_url
+                    });
                 }
             })
-                .catch(err => console.error("Network error:", err));
+                .catch(err => console.error("Network error or fetch failure:", err));
         });
     }
 }, 1000);

@@ -69,8 +69,7 @@ const interval = setInterval(() => {
 
 
             const base64 = btoa(
-                new TextEncoder().encode(fullCodeWithComment).reduce((acc, byte) => acc + String.fromCharCode(byte), "")
-            );
+                new TextEncoder().encode(fullCodeWithComment).reduce((acc, byte) => acc + String.fromCharCode(byte), ""));
 
             const extension = language && typeof language === "string" && languageExtensions[language.toLowerCase()] 
                 ? languageExtensions[language.toLowerCase()] 
@@ -85,29 +84,56 @@ const interval = setInterval(() => {
                 branch: "main"
             };
 
-            fetch(`https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `token ${token}`,
-                    "Content-Type": "application/json"
-                    },
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.content) {
-                    console.log("Pushed to GitHub:", data.content.html_url);
-                } else {
-                    console.error("GitHub push failed:", data);
-                }
-            })
-            .catch(err => console.error("Network error:", err));
+            const apiUrl = `https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`;
 
 
-        })
+fetch(apiUrl, {
+  method: "GET",
+  headers: {
+    Authorization: `token ${token}`,
+    Accept: "application/vnd.github.v3+json"
+  }
+})
+  .then(res => {
+    if (res.status === 404) return null; 
+    if (!res.ok) throw new Error(`GitHub GET failed with status ${res.status}`);
+    return res.json();
+  })
+  .then(existingFile => {
+    
+    const payload = {
+      message: `Add solution for ${submission.title}`,
+      content: base64,
+      branch: "main",
+      ...(existingFile && { sha: existingFile.sha }) 
+    };
 
+    
+    return fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Authorization": `token ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.content) {
+      console.log("Pushed to GitHub:", data.content.html_url);
+    } else {
+      console.error("GitHub push failed:", {
+        message: data.message,
+        errors: data.errors,
+        url: data.documentation_url
+      });
     }
-}, 1000);
+  })
+  .catch(err => console.error("Network error or fetch failure:", err));
+    });
+}
+        }, 1000);
 
 
 
