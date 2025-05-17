@@ -1,56 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>body.light {
-    background: #fff;
-    color: #111;
-  }
-  body.dark {
-    background: #111;
-    color: #eee;
-  }</style>
-</head>
-<body id="popupBody" class="light">
-    <form id="settings-form">
-        <label>
-            GitHub Username: 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCommit</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        margin: 0;
+        background-color: #ffffff;
+        color: #111827;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 16px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 450px;
+        padding: 18px 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        align-items: center;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 2px;
+        align-items: center;
+      }
+
+      .greeting-block {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .greeting {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 6px 0;
+      }
+
+      .total-solved-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 8px;
+      }
+
+      .section-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #4b5563;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+
+      .difficulty-block {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .diff-row {
+        display: grid;
+        grid-template-columns: 60px auto 1fr;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .label {
+        font-weight: 600;
+        font-size: 13px;
+      }
+
+      .count {
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .bar {
+        background: #e5e7eb;
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .bar-inner {
+        height: 100%;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      #easy-bar {
+        background: #22c55e;
+      }
+      #medium-bar {
+        background: #f59e0b;
+      }
+      #hard-bar {
+        background: #ef4444;
+      }
+
+      .settings-toggle {
+        text-align: center;
+        margin-top: 18px;
+      }
+
+      .card {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 24px;
+        display: none;
+      }
+
+      .form-group {
+        margin-bottom: 12px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 500;
+        font-size: 12.5px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        background-color: #f9fafb;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      input:focus {
+        border-color: #16a34a;
+        outline: none;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px 14px;
+        background-color: #00b87f;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        font-size: 13px;
+      }
+
+      button:hover {
+        background-color: #00a36f;
+      }
+
+      #status {
+        font-size: 13px;
+        margin-top: 6px;
+        color: #10b981;
+      }
+    </style>
+  </head>
+  <body id="popupBody" class="light" style="width: 450px">
+    <div class="container">
+      <div class="header" style="align-items: center">
+        <img src="../icons/icon.png" alt="logo" class="logo" />
+        <div>
+          <h1 class="title">LeetCommit</h1>
+          <p class="subtitle">Sync your LeetCode progress</p>
+        </div>
+      </div>
+
+      <div class="greeting-block">
+        <p class="greeting">Hi, <span id="user-greeting">User</span></p>
+        <p class="total-solved-label">
+          Total Solved: <span id="total-solved">0</span>
+        </p>
+      </div>
+
+      <div class="card" id="github-card">
+        <h2 class="section-title">GitHub Sync</h2>
+        <form id="settings-form">
+          <div class="form-group">
+            <label for="github-username">GitHub Username</label>
             <input type="text" id="github-username" required />
-        </label>
-        <br />
-        <label>
-            GitHub Repository Name: 
+          </div>
+          <div class="form-group">
+            <label for="leetcode-username">LeetCode Username</label>
+            <input type="text" id="leetcode-username" required />
+          </div>
+          <div class="form-group">
+            <label for="repo-name">Repository</label>
             <input type="text" id="repo-name" required />
-        </label>
-        <br />
-        <label>
-            GitHub Token: 
+          </div>
+          <div class="form-group">
+            <label for="github-token">Token</label>
             <input type="password" id="github-token" required />
-        </label>
-        <br />
-        <button type="submit">Save Settings</button>
-    </form>
-    <a href="settings.html" target="_blank">⚙️ Settings</a>
-    <p><strong>Problems Synced:</strong> <span id="synced-count">Loading...</span></p>
-    <div id="progress-container" style="
-  width: 100%;
-  height: 10px;
-  background: #e5e7eb;  /* light gray background */
-  border-radius: 5px;
-  overflow: hidden;
-  margin-top: 5px;
-">
-  <!-- 🔹 Filled progress bar -->
-  <div id="progress-bar" style="
-    height: 100%;
-    width: 0%;
-    background: #16a34a;  /* LeetCode-like green */
-    transition: width 0.3s ease;
-  "></div>
-</div>
-    <p id="status" style="margin-top: 10px;"></p>
+          </div>
+          <button type="submit">💾 Save Settings</button>
+          <p id="status"></p>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Progress</h2>
+        <p>
+          <strong>Problems Synced:</strong>
+          <span id="synced-count">Loading...</span>
+        </p>
+        <div id="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="difficulty-block">
+        <div class="diff-row">
+          <span class="label">Easy</span>
+          <span class="count"
+            ><span id="easy-solved">0</span> /
+            <span id="easy-total">0</span></span
+          >
+          <div class="bar"><div id="easy-bar" class="bar-inner"></div></div>
+        </div>
+        <div class="diff-row">
+          <span class="label">Medium</span>
+          <span class="count"
+            ><span id="medium-solved">0</span> /
+            <span id="medium-total">0</span></span
+          >
+          <div class="bar"><div id="medium-bar" class="bar-inner"></div></div>
+        </div>
+        <div class="diff-row">
+          <span class="label">Hard</span>
+          <span class="count"
+            ><span id="hard-solved">0</span> /
+            <span id="hard-total">0</span></span
+          >
+          <div class="bar"><div id="hard-bar" class="bar-inner"></div></div>
+        </div>
+      </div>
+
+      <div class="settings-toggle">
+        <button id="toggle-settings">⚙️ Settings</button>
+      </div>
+    </div>
+
     <script src="popup.js"></script>
-</body>
+  </body>
 </html>
