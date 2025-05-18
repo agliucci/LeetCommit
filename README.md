@@ -26,7 +26,7 @@
 - 📊 Tracks total synced problems and progress
 
 ---
-
+<!-- 
 ## 📥 Installation
 
 Available on the **Mac App Store**.  
@@ -40,6 +40,7 @@ Once installed:
 That’s it! Start solving problems on LeetCode and LeetCommit will take care of the syncing.
 
 ---
+-->
 
 ## 🖼️ Preview
 
