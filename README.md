@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./icon_512x512.png" alt="LeetCommit Logo" width="150"/>
+  <img src="/Users/agliucci/Downloads/icon_512x512.png" alt="LeetCommit Logo" width="150"/>
 </p>
 
 <h1 align="center">LeetCommit</h1>
@@ -22,35 +22,34 @@
 - 🧩 Metadata includes title, difficulty, and language
 - 📁 Solutions organized by difficulty level in GitHub
 - 🔐 Secure GitHub token storage (local only)
-- ⚙️ Customizable repo and sync settings
-- 📊 Progress tracking (e.g., number of synced problems)
+- ⚙️ Customizable repository and sync settings
+- 📊 Tracks total synced problems and progress
 
 ---
 
-## 🛠 Installation
+## 📥 Installation
 
-1. Clone or download the repository.
-2. Load the extension into Safari via Xcode or Safari Extension Builder.
-3. Configure your GitHub credentials in the extension settings.
-4. Solve problems on LeetCode — LeetCommit handles the rest!
+Available on the **Mac App Store**.  
+👉 [Download LeetCommit for Safari](#) *(Insert your App Store link)*
+
+Once installed:
+1. Open **Safari > Settings > Extensions**
+2. Enable **LeetCommit**
+3. Configure your GitHub token, username, and repository in the extension settings
+
+That’s it! Start solving problems on LeetCode and LeetCommit will take care of the syncing.
 
 ---
 
-## 📷 Preview
+## 🖼️ Preview
 
-_Add screenshots of the extension in action (optional)._
-
----
-
-## 🔒 Privacy
-
-Your GitHub credentials are stored **locally** on your device. LeetCommit does not send or share your data anywhere else. For more information, see our [Privacy Policy](#).
+_Add screenshots or GIFs of the extension interface and synced GitHub repo (optional)._
 
 ---
 
 ## 📨 Support
 
-Have questions or found a bug? Reach out via [email](mailto:your-email@example.com) or open an issue once the repo is public.
+Have questions or feedback? Reach out via [email](mailto:your-email@example.com).
 
 ---
 
@@ -62,4 +61,5 @@ MIT License. See `LICENSE` for more details.
 
 ## ✨ Acknowledgments
 
-Inspired by the frustration of copy-pasting code. Built for developers who want to keep their LeetCode grind clean and organized.
+Built to automate what every LeetCode grinder does manually.  
+Because time should be spent solving problems, not copying code.
