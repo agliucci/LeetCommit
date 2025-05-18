@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/Users/agliucci/Downloads/icon_512x512.png" alt="LeetCommit Logo" width="150"/>
+  <img src="./icon_512x512.png" alt="LeetCommit Logo" width="150"/>
 </p>
 
 <h1 align="center">LeetCommit</h1>
