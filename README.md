@@ -1,2 +1,2 @@
 # LeetCommit
-Safari/Chrome extension that syncs LeetCode submissions to GitHub
+Safari extension that syncs LeetCode submissions to GitHub
