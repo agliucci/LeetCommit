@@ -8,6 +8,15 @@
   Effortlessly sync your <strong>LeetCode</strong> progress to <strong>GitHub</strong>.
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue" />
+  <img src="https://img.shields.io/badge/status-active-brightgreen" />
+  <img src="https://img.shields.io/badge/built_with-TypeScript-3178C6?logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/platform-Safari%20Extension-lightgrey" />
+  <img src="https://img.shields.io/github/license/agliucci/LeetCommit" />
+</p>
+
+
 ---
 
 ## 🚀 Overview
@@ -44,13 +53,18 @@ That’s it! Start solving problems on LeetCode and LeetCommit will take care of
 
 ## 🖼️ Preview
 
-_Add screenshots or GIFs of the extension interface and synced GitHub repo (optional)._
+<p align="center">
+  <img src="./IMG3.png" alt="LeetCommit Logo" width="700"/>
+</p>
+<p align="center">
+  <img src="./IMG4.png" alt="LeetCommit Logo" width="700"/>
+</p>
 
 ---
 
 ## 📨 Support
 
-Have questions or feedback? Reach out via [email](mailto:your-email@example.com).
+Have questions or feedback? Reach out via [email](mailto:agliucci9@gmail.com).
 
 ---
 
